@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import "components/Application.scss";
 import DayList from "components/DayList"
@@ -47,7 +47,7 @@ const appointments = [
       interviewer: {
         id: 2,
         name: "Tori Malcolm",
-        avatar: "https://i.imgur.com/Nmx0Qxo.png" ,
+        avatar: "https://i.imgur.com/Nmx0Qxo.png",
       }
     }
   },
@@ -63,7 +63,7 @@ const appointments = [
       interviewer: {
         id: 3,
         name: "Mildred Nazir",
-        avatar: "https://i.imgur.com/T2WwVfS.png" ,
+        avatar: "https://i.imgur.com/T2WwVfS.png",
       }
     }
   },
@@ -71,7 +71,7 @@ const appointments = [
 
 export default function Application(props) {
   const [day, setDay] = useState("Monday");
- 
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -106,4 +106,4 @@ export default function Application(props) {
       </section>
     </main>
   );
-}
+};
