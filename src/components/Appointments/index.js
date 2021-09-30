@@ -3,14 +3,14 @@ import "./styles.scss";
 import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
-import { tsPropertySignature } from "@babel/types";
-const classnames = require('classnames');
 
 export default function Appointment(props) {
   return (
     <article className="appointment">
       <Header time={props.time}/>
-      {props.interview && <Show student={props.interview.student} interviewer={props.interview.interviewer.name}/> || <Empty/>}
+      {props.interview
+      ? <Show student={props.interviewer.student} interviewer={props.interview.interviewer.name} />
+      : <Empty />}
     </article>
   )
 }
