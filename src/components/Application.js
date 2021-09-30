@@ -2,6 +2,7 @@ import React, {useState} from "react";
 
 import "components/Application.scss";
 import DayList from "components/DayList"
+import Appointment from "../components/Appointments/index";
 
 const days = [
   {
@@ -93,7 +94,15 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
+        {appointments.map((obj) => {
+          return (
+            <Appointment
+              key={obj.id}
+              {...obj}
+            />
+          )
+        })}
+        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );
