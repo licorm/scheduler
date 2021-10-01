@@ -8,4 +8,16 @@ export function getAppointmentsForDay(state, day) {
     appointments.push(state.appointments[appointment]);
   })
   return appointments;
-}
+};
+
+export function getInterview(state, interview) {
+  if (interview === null) return null;
+  const filteredInterviews = state.interviewers[interview.interviewer];
+  
+  const interviewData = {
+    "student": interview.student,
+    "interviewer" : filteredInterviews
+  };
+ 
+  return interviewData;
+};
