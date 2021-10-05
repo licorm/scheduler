@@ -10,12 +10,12 @@ export default function Button(props) {
       "button--confirm": props.confirm,
       "button--danger": props.danger
    });
+   console.log("button props", props)
 
    return <button
       className={buttonClass}
       onClick={props.onClick}
       disabled={props.disabled}
-      onSave={props.onSave}
    >
       {props.children}
    </button>;
