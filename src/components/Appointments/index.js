@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./styles.scss";
 import Header from "./Header";
 import Show from "./Show";
@@ -24,7 +24,13 @@ export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   )
- 
+
+  useEffect(() => {
+    if (props.interview) {
+      transition(SHOW)
+    }
+    
+  }, [props.interview]) 
   function save(name, interviewer) {
     
     const interview = {
@@ -35,7 +41,6 @@ export default function Appointment(props) {
     transition(SAVING);
     
     props.bookInterview(props.id, interview)
-    .then(() => transition(SHOW))
     .catch((error) => transition(ERROR_SAVE, true))
     
   }
