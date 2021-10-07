@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 
 import "components/Application.scss";
 import DayList from "components/DayList"
 import Appointment from "../components/Appointments/index";
-import {getAppointmentsForDay, getInterview, getInterviewersForDay} from "../helpers/selectors";
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors";
 import useApplicationData from "../hooks/useApplicationData";
 
 
@@ -16,14 +15,14 @@ export default function Application(props) {
     cancelInterview
   } = useApplicationData();
 
-  
-  
+
+  //use selector function to get appointments for the day based off the state
   const appointmentsForDay = getAppointmentsForDay(state, state.day);
 
+  //iterate over appointments to create single day appointments
   const schedule = appointmentsForDay.map((appointment) => {
-  const interview = getInterview(state, appointment.interview);
-  const interviewers = getInterviewersForDay(state, state.day);
-    
+    const interview = getInterview(state, appointment.interview);
+    const interviewers = getInterviewersForDay(state, state.day);
 
     return (
       <Appointment
@@ -38,8 +37,6 @@ export default function Application(props) {
       />
     );
   });
-  
-  console.log(state)
 
   return (
     <main className="layout">

@@ -15,7 +15,7 @@ const InterviewList = function(props) {
         setInterviewer={() => props.onChange(interviewer.id)}
       />
     )
-  })
+  });
 
   return (
     <section className="interviewers">
@@ -25,6 +25,7 @@ const InterviewList = function(props) {
   );
 }
 
+//makes sure we receive interviewlist as an array
 InterviewList.propTypes = {
   interviewers: PropTypes.array.isRequired
 };

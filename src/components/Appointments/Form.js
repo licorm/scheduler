@@ -9,8 +9,8 @@ export default function Form(props) {
   const [error, setError] = useState("");
 
   //function to reset the states
-  const reset = () => { 
-    return setName(""), setInterviewer(null) 
+  const reset = () => {
+    return setName(""), setInterviewer(null)
   }
 
   //function to send to cancel button which calls the props and reset functions
@@ -18,12 +18,13 @@ export default function Form(props) {
     return (props.onCancel(), reset())
   }
 
- //function to make sure that the user can't submit if they don't enter their name
+  //function to make sure that the user can't submit if they don't enter their name
   function validate() {
     if (name === "") {
       setError("Student name cannot be blank");
       return;
     }
+    //exit the error when name exists
     setError("");
     props.onSave(name, interviewer);
   }
@@ -42,7 +43,7 @@ export default function Form(props) {
           />
         </form>
         <section className="appointment__validation">{error}</section>
-         <InterviewerList interviewers={props.interviewers} value={interviewer} onChange={setInterviewer} />
+        <InterviewerList interviewers={props.interviewers} value={interviewer} onChange={setInterviewer} />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">

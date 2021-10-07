@@ -1,6 +1,5 @@
 import React from "react";
 import "components/Button.scss";
-import { action } from "@storybook/addon-actions";
 const classNames = require('classnames');
 
 
@@ -10,7 +9,6 @@ export default function Button(props) {
       "button--confirm": props.confirm,
       "button--danger": props.danger
    });
-   console.log("button props", props)
 
    return <button
       className={buttonClass}
@@ -19,4 +17,4 @@ export default function Button(props) {
    >
       {props.children}
    </button>;
-}
+};
