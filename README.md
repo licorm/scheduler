@@ -53,6 +53,41 @@ npm test
 ```sh
 npm run storybook
 ```
+
+## API Setup
+
+In the scheduler-api repo, install dependencies with `npm install`.
+
+# Creating The DB
+
+- Run `psql -U development` on your vagrant machine and log in with username `development` and password `development`.
+- Create the database with command `CREATE DATABASE scheduler_development;`.
+- Add the following code to your `.env.development` file.
+```
+PGHOST=localhost
+PGUSER=development
+PGDATABASE=scheduler_development
+PGPASSWORD=development
+PGPORT=5432
+```
+
+# Seed The DB
+
+- Run the server using `npm start` in Host terminal.
+- Make a `GET` request to `/api/debug/reset` with `curl http://localhost:8001/api/debug/reset`.
+
+# Run The Server
+
+Running the server normally
+```sh
+npm start
+```
+
+Running the server so it returns an error when saving/deleting for testing the client's error handling capabilities
+```sh
+npm run error
+```
+
 ## Stack
 -ReactJS
 -Storybook
