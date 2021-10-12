@@ -58,7 +58,7 @@ npm run storybook
 
 In the scheduler-api repo, install dependencies with `npm install`.
 
-# Creating The DB
+### Creating The DB
 
 - Run `psql -U development` on your vagrant machine and log in with username `development` and password `development`.
 - Create the database with command `CREATE DATABASE scheduler_development;`.
@@ -71,12 +71,12 @@ PGPASSWORD=development
 PGPORT=5432
 ```
 
-# Seed The DB
+### Seed The DB
 
 - Run the server using `npm start` in Host terminal.
 - Make a `GET` request to `/api/debug/reset` with `curl http://localhost:8001/api/debug/reset`.
 
-# Run The Server
+### Run The Server
 
 Running the server normally
 ```sh
