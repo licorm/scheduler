@@ -34,10 +34,13 @@ export default function useApplicationData() {
           ...state.appointments,
           [action.id]: appointment
         };
+
+        const days = updateSpots(state, appointments, action.id);
+        
         return {
           ...state,
           appointments: appointments,
-          days: action.days
+          days
         }
       }
 
@@ -53,20 +56,32 @@ export default function useApplicationData() {
     dispatch({ type: SET_DAY, day })
   };
 
+  function updateSpots(state, appointments, id) {
+    const newDays = [];
+    let newSpots = 0;
+
+    for (const days of state.days) {
+      if (days.appointments.includes(id)) {
+        newSpots = 5 - days.appointments.length;
+      }
+      newDays.push({...days, spots: newSpots});
+    }
+    
+    return newDays;
+
+  }
+
   //booking an interview
   function bookInterview(id, interview) {
 
     // post the new data to the database
     return axios.put(`/api/appointments/${id}`, { interview })
       .then((response) => {
-         
-        //get info from database and use to update the state
-        return axios.get(`/api/days`)
-          .then((response) => {
-            const days = response.data
-            dispatch({ type: SET_INTERVIEW, id, interview, days: days });
+       
 
-          })
+
+        return dispatch({ type: SET_INTERVIEW, id, interview});
+       
 
       })
 
@@ -77,13 +92,9 @@ export default function useApplicationData() {
 
     return axios.delete(`/api/appointments/${id}`, { id })
       .then(() => {
-        return axios.get(`/api/days`)
-          .then(({ data }) => {
-
-            return dispatch({ type: SET_INTERVIEW, id, interview: null, days: data });
-
-          })
-
+        
+        return dispatch({ type: SET_INTERVIEW, id, interview: null });
+  
       })
 
   };

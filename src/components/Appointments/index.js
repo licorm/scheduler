@@ -26,9 +26,16 @@ export default function Appointment(props) {
   )
 
   useEffect(() => {
+    
     if (props.interview) {
-      transition(SHOW)
-    }
+      
+      transition(SHOW);
+      
+     }
+     if (props.interview === null) {
+       
+      transition(EMPTY);
+     }
 
   }, [props.interview])
 
@@ -67,13 +74,13 @@ export default function Appointment(props) {
           onEdit={() => transition(EDIT)}
         />
       )}
-      {mode === CREATE && <Form interviewers={props.interviewers} onSave={save} onCancel={() => back()} />}
+      {mode === CREATE && <Form interviewers={props.interviewers} onSave={save} onCancel={back} />}
       {mode === SAVING && <Status message={"Saving"} />}
       {mode === DELETING && <Status message={"Deleting"} />}
-      {mode === CONFIRM && <Confirm onCancel={() => back()} onConfirm={deleteAppointment} message={"Are you sure you want to delete?"} />}
-      {mode === EDIT && <Form interviewers={props.interviewers} onSave={save} onCancel={() => back()} mode={EDIT} name={props.interview.student} interviewer={props.interview.interviewer.id} />}
-      {mode === ERROR_SAVE && <Error message={"Could not save changes"} onClose={() => back()} />}
-      {mode === ERROR_DELETE && <Error message={"Could not delete appointment"} onClose={() => back()} />}
+      {mode === CONFIRM && <Confirm onCancel={back} onConfirm={deleteAppointment} message={"Are you sure you want to delete?"} />}
+      {mode === EDIT && <Form interviewers={props.interviewers} onSave={save} onCancel={back} mode={EDIT} name={props.interview.student} interviewer={props.interview.interviewer.id} />}
+      {mode === ERROR_SAVE && <Error message={"Could not save changes"} onClose={back} />}
+      {mode === ERROR_DELETE && <Error message={"Could not delete appointment"} onClose={back} />}
     </article>
   )
 };
