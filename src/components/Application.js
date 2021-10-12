@@ -3,7 +3,7 @@ import React from "react";
 import "components/Application.scss";
 import DayList from "components/DayList"
 import Appointment from "../components/Appointments/index";
-import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors";
+import { getInformationForDay, getInterview} from "../helpers/selectors";
 import useApplicationData from "../hooks/useApplicationData";
 
 
@@ -17,12 +17,12 @@ export default function Application(props) {
 
 
   //use selector function to get appointments for the day based off the state
-  const appointmentsForDay = getAppointmentsForDay(state, state.day);
+  const appointmentsForDay = getInformationForDay(state, state.day, 'appointments');
 
   //iterate over appointments to create single day appointments
   const schedule = appointmentsForDay.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
-    const interviewers = getInterviewersForDay(state, state.day);
+    const interviewers = getInformationForDay(state, state.day, 'interviewers');
 
     return (
       <Appointment

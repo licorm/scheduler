@@ -1,5 +1,5 @@
 //selector to grab appointments using state and day
-export function getAppointmentsForDay(state, day) {
+export function getInformationForDay(state, day, dataNeeded) {
  
   if (state.days.length === 0) return [];
   //filter the days object to find the correct day
@@ -7,13 +7,13 @@ export function getAppointmentsForDay(state, day) {
   //if nothing matches, there is nothing for that day
   if (filteredDays.length === 0) return [];
   //grab the appointments for the day
-  const appointmentsForDay = filteredDays.appointments;
-  const appointments = [];
-  //map over appointments for the day and push into a new array 
-  appointmentsForDay.forEach((appointment) => {
-    appointments.push(state.appointments[appointment]);
+  const dataForDay = filteredDays[dataNeeded];
+  const dataArray = [];
+  //iterate over appointments for the day and push into a new array 
+  dataForDay.forEach((data) => {
+    dataArray.push(state[dataNeeded][data]);
   })
-  return appointments;
+  return dataArray;
 };
 
 //get the interview based on the interview and state
@@ -29,15 +29,3 @@ export function getInterview(state, interview) {
   return interviewData;
 };
 
-//selector to grab interviews for day
-export function getInterviewersForDay(state, day) {
-  if (state.days.length === 0) return [];
-  const filteredDays = state.days.find(days => days.name === day);
-  if (filteredDays.length === 0) return [];
-  const interviewersForDay = filteredDays.interviewers;
-  const interviewers = [];
-  interviewersForDay.forEach((interviewer) => {
-    interviewers.push(state.interviewers[interviewer]);
-  })
-  return interviewers;
-};
