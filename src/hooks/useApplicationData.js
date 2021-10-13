@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import axios from "axios";
 
 export default function useApplicationData() {
@@ -36,6 +36,7 @@ export default function useApplicationData() {
         };
 
         const days = updateSpots(state, appointments, action.id);
+        console.log(days)
         
         return {
           ...state,
@@ -58,14 +59,25 @@ export default function useApplicationData() {
 
   //update spots without mutating state
   function updateSpots(state, appointments, id) {
-    const newDays = [];
+    const newDays = []; 
     let newSpots = 0;
 
-    for (const days of state.days) {
-      if (days.appointments.includes(id)) {
-        newSpots = 5 - days.appointments.length;
+    for (const day of state.days) {
+      //find the day that includes the id for the appointment we're modifying
+      if (day.appointments.includes(id)) {
+        for (const appointment of day.appointments) {
+          //go through the appointments array and use it as a key to access the interview in day.appointments to check if it's null, if it is null, add that as a new spot
+          if (appointments[appointment].interview === null) {
+            newSpots +=1;
+          }
+        }
+        //push that day as well as the updated spots
+        newDays.push({...day, spots: newSpots});
+      } else {
+        //push the day without updating spots if it doesn't correspond to the day of appointment being modified
+        newDays.push({...day})
       }
-      newDays.push({...days, spots: newSpots});
+      
     }
     
     return newDays;
