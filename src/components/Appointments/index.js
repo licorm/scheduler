@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./styles.scss";
 import Header from "./Header";
 import Show from "./Show";
@@ -23,21 +23,7 @@ const ERROR_DELETE = "ERROR_DELETE";
 export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
-  )
-
-  useEffect(() => {
-    
-    if (props.interview) {
-      
-      transition(SHOW);
-      
-     }
-     if (props.interview === null) {
-       
-      transition(EMPTY);
-     }
-
-  }, [props.interview])
+  );
 
   function save(name, interviewer) {
 
@@ -49,7 +35,8 @@ export default function Appointment(props) {
     transition(SAVING);
 
     props.bookInterview(props.id, interview)
-      .catch((error) => transition(ERROR_SAVE, true))
+      .then(() => transition(SHOW))
+      .catch((error) => transition(ERROR_SAVE, true));
 
   }
 
@@ -58,7 +45,7 @@ export default function Appointment(props) {
     transition(DELETING, true);
     props.cancelInterview(props.id)
       .then(() => transition(EMPTY))
-      .catch((error) => transition(ERROR_DELETE, true))
+      .catch((error) => transition(ERROR_DELETE, true));
 
   };
 
